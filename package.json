@@ -1,0 +1,22 @@
+{
+  "name": "ytsr-api",
+  "version": "1.0.0",
+  "description": "A YouTube search API using ytsr, compatible with Invidious.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [
+    "youtube",
+    "search",
+    "api",
+    "ytsr",
+    "invidious"
+  ],
+  "author": "Your Name",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2",
+    "ytsr": "^3.8.3"
+  }
+}
