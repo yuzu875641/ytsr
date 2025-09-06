@@ -1,10 +1,10 @@
-// api/v1/search.js
+// index.js
 
 const express = require('express');
 const ytsr = require('ytsr');
 const app = express();
+const PORT = process.env.PORT || 3000;
 
-// Vercel のサーバーレス関数として機能するために、body-parser を追加
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -21,9 +21,8 @@ app.get('/api/v1/search', async (req, res) => {
     const searchResults = await ytsr(filter.url, { limit: 10 });
 
     const invidiousFormatResults = searchResults.items.map(item => {
-      // Invidious の形式に合わせてデータを整形
       let formattedItem = {
-        type: item.type === 'video' ? 'video' : 'live', // ytsr のタイプに合わせて設定
+        type: item.type === 'video' ? 'video' : 'live',
         title: item.title,
         videoId: item.id,
         videoThumbnails: item.thumbnails.map(thumbnail => ({
@@ -38,7 +37,6 @@ app.get('/api/v1/search', async (req, res) => {
         authorId: item.author.channelID,
         liveNow: item.isLive
       };
-
       return formattedItem;
     });
 
@@ -49,7 +47,6 @@ app.get('/api/v1/search', async (req, res) => {
   }
 });
 
-// 時間文字列（例: "2:30"）を秒数に変換するヘルパー関数
 function parseDurationToSeconds(duration) {
   if (!duration) return null;
   const parts = duration.split(':').map(Number);
@@ -59,5 +56,6 @@ function parseDurationToSeconds(duration) {
   return null;
 }
 
-// Vercel のサーバーレス関数としてエクスポート
-module.exports = app;
+app.listen(PORT, () => {
+  console.log(`Server listening on port ${PORT}`);
+});
