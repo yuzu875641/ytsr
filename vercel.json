@@ -1,0 +1,16 @@
+{
+  "rewrites": [
+    { "source": "/api/v1/:path*", "destination": "/api/:path*" }
+  ],
+  "redirects": [
+    { "source": "/old-path", "destination": "/new-path", "permanent": true }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Frame-Options", "value": "SAMEORIGIN" }
+      ]
+    }
+  ]
+}
